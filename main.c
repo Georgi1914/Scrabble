@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"game.h"
 
 void settings(){
 
@@ -36,8 +37,7 @@ void settings(){
             settings();
             break;
     }
-}
-
+}   
 
 int main(){
     while(1){
@@ -52,7 +52,9 @@ int main(){
         scanf("%d", &option);
 
         switch(option){
-            case 1: break;
+            case 1:
+                start_game();
+                break;
             case 2: 
                 settings(); 
                 break;
