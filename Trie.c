@@ -12,47 +12,57 @@ char *word_taker(char *word)
 {
 }
 
+struct node_t *get_node()
+{
+    struct node_t *new_node = malloc(sizeof(struct node_t)); 
+  
+    new_node->isWord = 0;
+  
+    for (int i = 0; i < 26; i++){
+        new_node->children[i] = NULL;
+    }
+  
+    return new_node;
+}
+
 void insert(struct node_t *root, char *word)
 {
-    struct node_t *new_node = malloc(sizeof(struct node_t));
     struct node_t *curr = root;
-    int i = 0;
-    char c;
+    int letter_num;
 
-    for (i = 0; word[i] != '\0'; i++)
+    for (int i = 0; word[i] != '\0'; i++)
     {
-        c = word[i];
-        int j = 0;
-        printf("%d", curr->children[c - 'a'] == NULL);
 
-        for (j = 0; j < 26; j++)
+        letter_num = word[i] - 'a';
+
+        if(curr->children[letter_num] == NULL)
         {
-            new_node->children[j] = NULL;
+            curr->children[letter_num] = get_node();
+            curr->children[letter_num]->c = word[i];
+            
         }
 
-        if (curr->children[c - 'a'] == NULL)
-        {
-            new_node->c = c;
-            curr->children[c - 'a'] = new_node;
-            curr->isWord = 0;
-        }
+        curr = curr->children[letter_num];
 
-        curr = curr->children[c - 'a'];
     }
+
     curr->isWord = 1;
+
 }
 
 void print_trie(struct node_t *root)
 {
+    printf("%c", root->c);
 
-    int i = 0;
-
-    printf("%c\n", root->c);
-    for (i = 0; i < 26; i++)
+    for (int i = 0; i < 26; i++)
     {
+
         if (root->children[i] != NULL)
         {
+
+            printf("I = %d\n", i);
             print_trie(root->children[i]);
+
         }
     }
 }
@@ -62,6 +72,8 @@ int main()
     char word[] = "words";
 
     insert(&root, word);
+    insert(&root, word);
+
     print_trie(&root);
     return 0;
 }
