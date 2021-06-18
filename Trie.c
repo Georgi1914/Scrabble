@@ -10,10 +10,12 @@ struct node_t
 
 void get_word(char *word, FILE *file)
 {
+    char ch;
     int i = 0;
-    for (i = 0; (word[i] = fgetc(file)) != ';'; i++)
+
+    for (i = 0; (i < (sizeof(word) - 1) && ((ch = fgetc(file)) != EOF) && (ch != ';')); i++)
     {
-        printf("%c", word);
+        word[i] = ch;
     }
 
     word[i] = '\0';
@@ -47,7 +49,7 @@ void insert(struct node_t *root, char *word)
     FILE *file = fopen("./dictionary.txt", "r");
     rewind(file);
 
-    while (EOF)
+    while (!feof(file))
     {
 
         get_word(word, file);
@@ -73,6 +75,10 @@ void insert(struct node_t *root, char *word)
 void print_trie(struct node_t *root)
 {
     printf("%c", root->c);
+    if (root->isWord)
+    {
+        printf("\n");
+    }
 
     for (int i = 0; i < 26; i++)
     {
