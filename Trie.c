@@ -8,20 +8,33 @@ struct node_t
     struct node_t *children[26];
 };
 
-char *word_taker(char *word)
+void get_word(char *word, FILE *file)
 {
+    int i = 0;
+    for (i = 0; (word[i] = fgetc(file)) != ';'; i++)
+    {
+        printf("%c", word);
+    }
+
+    word[i] = '\0';
+
+    /*for (i = 0; i < 10; i++)
+    {
+        printf("%c", word[i]);
+    }*/
 }
 
 struct node_t *get_node()
 {
-    struct node_t *new_node = malloc(sizeof(struct node_t)); 
-  
+    struct node_t *new_node = malloc(sizeof(struct node_t));
+
     new_node->isWord = 0;
-  
-    for (int i = 0; i < 26; i++){
+
+    for (int i = 0; i < 26; i++)
+    {
         new_node->children[i] = NULL;
     }
-  
+
     return new_node;
 }
 
@@ -29,25 +42,32 @@ void insert(struct node_t *root, char *word)
 {
     struct node_t *curr = root;
     int letter_num;
+    int j = 0;
 
-    for (int i = 0; word[i] != '\0'; i++)
+    FILE *file = fopen("./dictionary.txt", "r");
+    rewind(file);
+
+    while (EOF)
     {
 
-        letter_num = word[i] - 'a';
+        get_word(word, file);
 
-        if(curr->children[letter_num] == NULL)
+        for (int i = 0; word[i] != '\0'; i++)
         {
-            curr->children[letter_num] = get_node();
-            curr->children[letter_num]->c = word[i];
-            
+            letter_num = word[i] - 'a';
+
+            if (curr->children[letter_num] == NULL)
+            {
+                curr->children[letter_num] = get_node();
+                curr->children[letter_num]->c = word[i];
+            }
+
+            curr = curr->children[letter_num];
         }
-
-        curr = curr->children[letter_num];
-
+        curr->isWord = 1;
     }
 
-    curr->isWord = 1;
-
+    fclose(file);
 }
 
 void print_trie(struct node_t *root)
@@ -60,18 +80,15 @@ void print_trie(struct node_t *root)
         if (root->children[i] != NULL)
         {
 
-            printf("I = %d\n", i);
             print_trie(root->children[i]);
-
         }
     }
 }
 int main()
 {
     struct node_t root = {'\0', 0};
-    char word[] = "words";
+    char word[10];
 
-    insert(&root, word);
     insert(&root, word);
 
     print_trie(&root);
