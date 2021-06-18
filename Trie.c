@@ -13,7 +13,7 @@ void get_word(char *word, FILE *file)
     char ch = '\0';
     int i = 0;
 
-    for (i = 0; ((ch = fgetc(file)) != EOF) && (ch != ';'); i++)
+    for (i = 0; ((ch = fgetc(file)) != EOF) && (ch != '\n'); i++)
     {
         word[i] = ch;
     }
@@ -28,7 +28,7 @@ void get_word(char *word, FILE *file)
 
 struct node_t *get_node()
 {
-    struct node_t *new_node = malloc(sizeof(struct node_t));
+    struct node_t *new_node = (struct node_t *)malloc(sizeof(struct node_t));
 
     new_node->isWord = 0;
 
