@@ -10,10 +10,10 @@ struct node_t
 
 void get_word(char *word, FILE *file)
 {
-    char ch;
+    char ch = '\0';
     int i = 0;
 
-    for (i = 0; (i < (sizeof(word) - 1) && ((ch = fgetc(file)) != EOF) && (ch != ';')); i++)
+    for (i = 0; ((ch = fgetc(file)) != EOF) && (ch != ';'); i++)
     {
         word[i] = ch;
     }
@@ -93,7 +93,7 @@ void print_trie(struct node_t *root)
 int main()
 {
     struct node_t root = {'\0', 0};
-    char word[10];
+    char word[100];
 
     insert(&root, word);
 
