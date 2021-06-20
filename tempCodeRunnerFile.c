@@ -1,1 +1,0 @@
-#include"add_word_to_dic.h"

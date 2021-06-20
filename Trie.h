@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // Structure initialization
 struct node_t
@@ -125,6 +126,7 @@ void clear(struct node_t *root)
     }
 }
 
+// Word validation
 int is_valid(char *word, struct node_t *root){
 
     if(!root){
