@@ -30,7 +30,3 @@ void add_word_to_dictionary() {
     fclose(file); 
 
 }
-
-int main() {
-    add_word_to_dictionary();
-}
