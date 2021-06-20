@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"game.h"
+#include"add_word_to_dic.h"
 
 void settings(){
 
@@ -50,7 +51,7 @@ int main(){
         printf("4. Quit\n");
 
         scanf("%d", &option);
-
+        getchar();
         switch(option){
             case 1:
                 start_game();
@@ -58,7 +59,9 @@ int main(){
             case 2: 
                 settings(); 
                 break;
-            case 3: break;
+            case 3: 
+                add_word_to_dictionary();
+                break;
             case 4: 
                 printf("Have a nice day!");
                 exit(0);

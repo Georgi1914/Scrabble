@@ -10,7 +10,7 @@ void add_word_to_dictionary() {
     fgets(word, 50, stdin);
   
     FILE* file = fopen("./dictionary.txt", "r+");
-
+    if(file == NULL) puts("nebaca");
     while (fgets(buff, 50, file) != NULL) {
 
         if(!strcmp(buff, word)){
@@ -28,5 +28,4 @@ void add_word_to_dictionary() {
         printf("Failed to open the file\n");
     }
     fclose(file); 
-
 }
