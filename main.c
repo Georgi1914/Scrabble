@@ -5,7 +5,7 @@
 
 void settings(){
 
-    FILE* file = fopen("./settings.bin", "rb");
+    FILE* file = fopen("./settings.bin", "rb+");
 
     int stngs[2];
     fread(stngs, sizeof(stngs[0]), 2, file);
@@ -24,13 +24,11 @@ void settings(){
 
     switch(settings_option){
         case 1:
-            file = fopen("./settings.bin", "wb");
             printf("Number of rounds: ");
             scanf("%d", &stngs[0]);
             printf("Number of letters: ");
             scanf("%d", &stngs[1]);
             fwrite(stngs, sizeof(stngs[0]), 2, file);
-            fclose(file);
             break;
         case 2: break;
         default:
@@ -38,6 +36,7 @@ void settings(){
             settings();
             break;
     }
+    fclose(file);
 }   
 
 int main(){
