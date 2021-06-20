@@ -45,7 +45,6 @@ void insert(struct node_t *root, char *dict)
     struct node_t *curr = root;
     int letter_num;
     int j = 0;
-    char word[100];
 
     FILE *file = fopen(dict, "r");
     rewind(file);
@@ -99,6 +98,16 @@ void print_trie(struct node_t *root)
     }
 }
 
+int is_empty(struct node_t *root)
+{
+    for (int i = 0; i < 26; i++)
+    {
+        if (root->children[i] != NULL)
+            return 0;
+    }
+    return 1;
+}
+
 // Clearing the allocated memory
 void clear(struct node_t *root)
 {
@@ -116,16 +125,32 @@ void clear(struct node_t *root)
     }
 }
 
-int is_empty(struct node_t *root)
-{
-    for (int i = 0; i < 26; i++)
-    {
-        if (root->children[i] != NULL)
-            return 0;
+int is_valid(char *word, struct node_t *root){
+
+    if(!root){
+        return 0;
     }
-    return 1;
+
+    struct node_t *curr = root;
+    
+    for(int i = 0; i < strlen(word); i++){
+
+        curr = curr->children[word[i] - 'a'];
+
+        if(curr->c != word[i]){
+            return 0;
+        }
+
+    }
+    if(curr->isWord){
+        return 1;
+    }
+
+    return 0;
 }
-void init_trie()
+
+
+struct node_t init_trie()
 {
     struct node_t root = {'\0', 0};
 
@@ -134,5 +159,5 @@ void init_trie()
     //print_trie(&root);
     //clear(&root);
 
-    return;
+    return root;
 }
