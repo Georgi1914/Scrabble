@@ -1,13 +1,19 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include<string.h>
+#include"Trie.h"
 
 void start_game(){
     srand(time(0));
-    FILE* file = fopen("./settings.bin", "r");
-    int stngs[2];
-    fread(stngs, sizeof(stngs[0]), 2, file);
+    int stngs[2]; //stngs[0] is the number of rounds; stngs[1] is the number of letters per round
     char* letters = (char*)malloc(sizeof(char)*stngs[1]);
+    char* word = (char*)malloc(sizeof(char)*stngs[1]);
+    struct node_t root = init_trie();
+    int points = 0;
+    FILE* file = fopen("./settings.bin", "r");
+    fread(stngs, sizeof(stngs[0]), 2, file);
+
     for(int round = 0; round < stngs[0]; round++){
     
         printf("Your letters:");
@@ -16,11 +22,22 @@ void start_game(){
             letters[i] = (rand() % ('z' - 'a' + 1)) + 'a';
             printf("%c ", letters[i]);
         }
+        puts("");
+        do{
+            scanf("%s", word);
+            getchar();
 
-        //GO60
-        
+            if(!is_valid(word, &root)){
+                printf("Invalid word. Try again!");
+            }
+        }while(!is_valid(word, &root));
+        printf("Points for this word: %d", strlen(word));
+        points += strlen(word);
+    }
 
-        int option;
+    printf("\nPoints for entire game: %d\n", points);
+
+    int option;
         do{
             printf("Play again?\n");
             printf("1. Yes\n");
@@ -30,5 +47,4 @@ void start_game(){
         if(option == 1){
             start_game();
         }
-    }
 }
