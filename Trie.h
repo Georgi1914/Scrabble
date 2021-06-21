@@ -131,8 +131,8 @@ void init_trie()
 
     insert(&root, "./dictionary.txt");
 
-    //print_trie(&root);
-    //clear(&root);
+    print_trie(&root);
+    clear(&root);
 
     return;
 }

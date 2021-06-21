@@ -26,7 +26,7 @@ void get_word(char *word, FILE *file)
 // Creating a new node by allocating memory
 struct node_t *get_node()
 {
-    struct node_t *new_node = (struct node_t *)malloc(sizeof(struct node_t));
+    struct node_t *new_node = (struct node_t *)calloc(1, sizeof(struct node_t));
 
     new_node->isWord = 0;
 
@@ -39,13 +39,14 @@ struct node_t *get_node()
 }
 
 // Inserting new node to the trie
-void insert(struct node_t *root, char *word)
+void insert(struct node_t *root, char *dict)
 {
     struct node_t *curr = root;
     int letter_num;
     int j = 0;
+    char word[100];
 
-    FILE *file = fopen("./dictionary.txt", "r");
+    FILE *file = fopen(dict, "r");
     rewind(file);
 
     while (!feof(file))
@@ -97,27 +98,52 @@ void print_trie(struct node_t *root)
     }
 }
 
-// Clearing the allocated memory
-void clear(struct node_t *root)
+// Checking if the root has children
+int is_empty(struct node_t *root)
 {
     for (int i = 0; i < 26; i++)
     {
         if (root->children[i] != NULL)
+            return 0;
+    }
+    return 1;
+}
+
+// Clearing the allocated memory
+void clear(struct node_t *root)
+{
+    printf("Root=%c\n");
+    for (int i = 0; i < 26; i++)
+    {
+        if (root->children[i] != NULL)
         {
+            printf("Children = %c\n", root->children[i]);
             clear(root->children[i]);
         }
-        root->children[i] = (struct node_t *)calloc(1, sizeof(struct node_t *));
+
+        if (is_empty(root))
+        {
+            free(root);
+            return;
+        }
     }
 }
+
 int main()
 {
     struct node_t root = {'\0', 0};
-    char word[100];
 
-    insert(&root, word);
+    insert(&root, "./dictionary.txt");
 
     print_trie(&root);
+
     clear(&root);
 
+    printf("\n");
+
+    print_trie(&root);
+
+    printf("\n");
+    printf("fdfdfdfdfdf");
     return 0;
 }
