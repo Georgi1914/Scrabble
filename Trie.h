@@ -41,7 +41,6 @@ struct node_t *get_node()
 // Inserting new node to the trie
 void insert(struct node_t *root, char *dict)
 {
-    char word[100];
     struct node_t *curr = root;
     int letter_num;
     int j = 0;
@@ -99,23 +98,7 @@ void print_trie(struct node_t *root)
     }
 }
 
-// Clearing the allocated memory
-void clear(struct node_t *root)
-{
-    for (int i = 0; i < 26; i++)
-    {
-        if (root->children[i] != NULL)
-        {
-            clear(root->children[i]);
-        }
-    }
-
-    if (is_empty(root))
-    {
-        free(root);
-    }
-}
-
+// Checking if the root has children
 int is_empty(struct node_t *root)
 {
     for (int i = 0; i < 26; i++)
@@ -125,14 +108,36 @@ int is_empty(struct node_t *root)
     }
     return 1;
 }
-void init_trie()
+
+// Clearing the allocated memory
+void clear(struct node_t *root)
+{
+    printf("Root=%c\n");
+    for (int i = 0; i < 26; i++)
+    {
+        if (root->children[i] != NULL)
+        {
+            printf("Children = %c\n", root->children[i]);
+            clear(root->children[i]);
+        }
+
+        if (is_empty(root))
+        {
+            free(root);
+            return;
+        }
+    }
+}
+
+int init_Trie()
 {
     struct node_t root = {'\0', 0};
 
     insert(&root, "./dictionary.txt");
 
     print_trie(&root);
+
     clear(&root);
 
-    return;
+    return 0;
 }

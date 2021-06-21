@@ -139,11 +139,5 @@ int main()
 
     clear(&root);
 
-    printf("\n");
-
-    print_trie(&root);
-
-    printf("\n");
-    printf("fdfdfdfdfdf");
     return 0;
 }
