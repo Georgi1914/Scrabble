@@ -10,10 +10,8 @@ vajno
 neznambrat
 Neznambrat
 Vajno
-d "g:\MnOgoDoBarNaC\Scrabble\Scrabble\" ; if ($?) g++ add_word_to_dic.h -o add_word_to_dic } ; if $?) { .\add_word_to_dic }
 asdasd
 asdasda
-d "g:\mnogodobarnac\scrabble\scrabble\" ; if ($?) g++ trie.h -o trie } ; if ($?) { .\trie }
 sadasd
 asda
 aszxcz

@@ -23,14 +23,14 @@ void start_game(){
             printf("%c ", letters[i]);
         }
         puts("");
-        do{
+        // do{
             scanf("%s", word);
             getchar();
 
-            if(!is_valid(word, &root, letters)){
-                printf("Invalid word. Try again!");
-            }
-        }while(!is_valid(word, &root, letters));
+        //     if(!is_valid(word, &root, letters)){
+        //         printf("Invalid word. Try again!");
+        //     }
+        // }while(!is_valid(word, &root, letters));
         printf("%d", is_valid(word, &root, letters));
         printf("Points for this word: %d", strlen(word));
         points += strlen(word);

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
 
 // Structure initialization
 struct node_t
@@ -127,28 +129,70 @@ void clear(struct node_t *root)
 }
 
 // Word validation
-int is_valid(char *word, struct node_t *root){
-
-    if(!root){
-        return 0;
+int is_valid(char *word, struct node_t *root, char *letters){
+    for(int i = 0; i < strlen(letters) - 1; i++){
+        letters[i] = tolower(letters[i]);
     }
 
-    struct node_t *curr = root;
-    
     for(int i = 0; i < strlen(word); i++){
-
-        curr = curr->children[word[i] - 'a'];
-
-        if(curr->c != word[i]){
+        int ok = 0;
+        printf("I: %d\n", i);
+        for(int j = 0; j < strlen(letters); j++){
+            //printf("word = %c\nletter = %c\n", word[i], letters[i]);
+            if(word[i] == letters[j]){
+                printf("J == %d\n", j);
+                ok = 1;
+                letters[j] = '0';
+                break;
+            }
+        }
+        printf("letter: %c\n", word[i]);
+        if(ok == 0){
+            printf("Invalid letter: %c", word[i]);
             return 0;
         }
-
     }
-    if(curr->isWord){
-        return 1;
-    }
+    printf("valid word");
+    return 1;
 
-    return 0;
+    // int length = strlen(word);
+    // struct node_t *curr = root;
+  
+    // for (int i = 0; i < length; i++)
+    // {
+    //     int index = word[i] - 'a';
+
+    //     if (!curr->children[index]){
+    //         return 1;
+    //     }
+        
+    //     curr = curr->children[index];
+    // }
+
+    // return curr->isWord;
+
+    // if(!root){
+    //     return 0;
+    // }
+    
+    // struct node_t *curr = root;
+    
+    // for(int i = 0; i < strlen(word); i++){
+        
+    //     int index = word[i] - 'a';
+    //     curr = curr->children[index];
+
+    //     if(curr->c != word[i]){
+    //         return 0;
+    //     }
+    //     printf("ddzbrat\n");
+    // }
+
+    // if(curr->isWord){
+    //     return 1;
+    // }
+
+    // return 0;
 }
 
 
