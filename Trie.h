@@ -97,7 +97,6 @@ void print_trie(struct node_t *root)
     {
         if (root->children[i] != NULL)
         {
-            //printf("\nI = %d\n", i);
             print_trie(root->children[i]);
         }
     }
@@ -130,11 +129,7 @@ int is_empty(struct node_t *root)
 //     }
 // }
 
-// Word validation
-int is_valid(char *word, struct node_t *root, char *letters){
-    printf("letter - %c\n", root->children[15]->c);
-
-    //Letters validation
+int letter_validation(char *word, struct node_t *root, char *letters){
     for(int i = 0; i < strlen(letters) - 1; i++){
         letters[i] = tolower(letters[i]);
     }
@@ -142,7 +137,6 @@ int is_valid(char *word, struct node_t *root, char *letters){
     for(int i = 0; i < strlen(word); i++){
         int ok = 0;
         for(int j = 0; j < strlen(letters); j++){
-            //printf("word = %c\nletter = %c\n", word[i], letters[i]);
             if(word[i] == letters[j]){
                 ok = 1;
                 letters[j] = '0';
@@ -156,44 +150,30 @@ int is_valid(char *word, struct node_t *root, char *letters){
         }
     }
     printf("valid letter\n");
-    //Veroqtno greshkata e v durvoto, printira se s funkciqta, no ne i ruchno
-    //print_trie(root);
-    //Word validation
-    // int length = strlen(word);
-    // struct node_t *curr = root;
-  
-    // for (int i = 0; i < length; i++)
-    // {
-    //     int index = word[i] - 'a';
-    //     printf("Index - %d\n", index);
-    //     if(!curr->children[index]){
-    //         printf("NZBRATAMARABOTI\n");
-    //         return 0;
-    //     }
-        
-    //     curr = curr->children[index];
-    // }
-    // printf("NZBRATAMARABOTI\n");
-    // return curr->isWord;
-    
-    // struct node_t *curr = root;
-    
-    // for(int i = 0; i < strlen(word); i++){
-        
-    //     int index = word[i] - 'a';
-    //     printf("ddzbrat\n");
-    //     curr = curr->children[index];
-    //     if(curr->c != word[i]){
-    //         return 0;
-    //     }
-    //     printf("ddzbrat\n");
-    // }
+}
 
-    // if(curr->isWord){
-    //     return 1;
-    // }
+// Word validation
+int is_valid(char *word, struct node_t *root, char *letters){
 
-    // return 0;
+    if(!letter_validation(word, root, letters)){
+        return 0;
+    }
+
+    struct node_t *curr = root;
+    
+    for(int i = 0; i < strlen(word); i++){
+
+        if(!curr->children[word[i] - 'a']){
+            return 0;
+        }
+        curr = curr->children[word[i] - 'a'];
+    }
+
+    if(curr->isWord){
+        return 1;
+    }
+
+    return 0;
 }
 
 
