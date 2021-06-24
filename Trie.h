@@ -29,7 +29,7 @@ void get_word(char *word, FILE *file)
 // Creating a new node by allocating memory
 struct node_t *get_node()
 {
-    struct node_t *new_node = (struct node_t *)calloc(1, sizeof(struct node_t));
+    struct node_t *new_node = (struct node_t *)malloc(sizeof(struct node_t));
 
     new_node->isWord = 0;
 
@@ -70,6 +70,7 @@ void insert(struct node_t *root, char *dict)
             curr = curr->children[letter_num];
         }
         curr->isWord = 1;
+        curr = root;
     }
 
     fclose(file);
@@ -96,6 +97,7 @@ void print_trie(struct node_t *root)
     {
         if (root->children[i] != NULL)
         {
+            //printf("\nI = %d\n", i);
             print_trie(root->children[i]);
         }
     }
@@ -112,76 +114,75 @@ int is_empty(struct node_t *root)
 }
 
 // Clearing the allocated memory
-void clear(struct node_t *root)
-{
-    for (int i = 0; i < 26; i++)
-    {
-        if (root->children[i] != NULL)
-        {
-            clear(root->children[i]);
-        }
-    }
+// void clear(struct node_t *root)
+// {
+//     for (int i = 0; i < 26; i++)
+//     {
+//         if (root->children[i] != NULL)
+//         {
+//             clear(root->children[i]);
+//         }
+//     }
 
-    if (is_empty(root))
-    {
-        free(root);
-    }
-}
+//     if (is_empty(root))
+//     {
+//         free(root);
+//     }
+// }
 
 // Word validation
 int is_valid(char *word, struct node_t *root, char *letters){
+    printf("letter - %c\n", root->children[15]->c);
+
+    //Letters validation
     for(int i = 0; i < strlen(letters) - 1; i++){
         letters[i] = tolower(letters[i]);
     }
 
     for(int i = 0; i < strlen(word); i++){
         int ok = 0;
-        printf("I: %d\n", i);
         for(int j = 0; j < strlen(letters); j++){
             //printf("word = %c\nletter = %c\n", word[i], letters[i]);
             if(word[i] == letters[j]){
-                printf("J == %d\n", j);
                 ok = 1;
                 letters[j] = '0';
                 break;
             }
         }
-        printf("letter: %c\n", word[i]);
         if(ok == 0){
-            printf("Invalid letter: %c", word[i]);
+            char help = toupper(word[i]);
+            printf("Invalid letter: %c\n", help);
             return 0;
         }
     }
-    printf("valid word");
-    return 1;
-
+    printf("valid letter\n");
+    //Veroqtno greshkata e v durvoto, printira se s funkciqta, no ne i ruchno
+    //print_trie(root);
+    //Word validation
     // int length = strlen(word);
     // struct node_t *curr = root;
   
     // for (int i = 0; i < length; i++)
     // {
     //     int index = word[i] - 'a';
-
-    //     if (!curr->children[index]){
-    //         return 1;
+    //     printf("Index - %d\n", index);
+    //     if(!curr->children[index]){
+    //         printf("NZBRATAMARABOTI\n");
+    //         return 0;
     //     }
         
     //     curr = curr->children[index];
     // }
-
+    // printf("NZBRATAMARABOTI\n");
     // return curr->isWord;
-
-    // if(!root){
-    //     return 0;
-    // }
     
     // struct node_t *curr = root;
     
     // for(int i = 0; i < strlen(word); i++){
         
     //     int index = word[i] - 'a';
+    //     printf("ddzbrat\n");
     //     curr = curr->children[index];
-
     //     if(curr->c != word[i]){
     //         return 0;
     //     }

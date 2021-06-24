@@ -31,8 +31,8 @@ void start_game(){
         //         printf("Invalid word. Try again!");
         //     }
         // }while(!is_valid(word, &root, letters));
-        printf("%d", is_valid(word, &root, letters));
-        printf("Points for this word: %d", strlen(word));
+        printf("Valid - %d\n", is_valid(word, &root, letters));
+        printf("Points for this word: %d\n", strlen(word));
         points += strlen(word);
     }
 
