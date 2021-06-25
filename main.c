@@ -52,7 +52,6 @@ int main(){
         getchar();
         switch(option){
             case 1:
-                // puts(""); //Tova po nqkakva prichina chupi vsichko
                 start_game();
                 break;
             case 2:
