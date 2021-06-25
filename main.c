@@ -4,7 +4,6 @@
 #include"add_word_to_dic.h"
 
 void settings(){
-
     FILE* file = fopen("./settings.bin", "rb+");
 
     int stngs[2];
@@ -15,7 +14,7 @@ void settings(){
     printf("Rounds: %d\n", stngs[0]);
     printf("Letters: %d\n", stngs[1]);
 
-    printf("\nChange settings?\n");
+    printf("\nChange settings?\n\n");
     printf("1. Yes\n");
     printf("2. No\n");
 
@@ -32,7 +31,7 @@ void settings(){
             break;
         case 2: break;
         default:
-            printf("\nWrong input. Try again.\n");
+            printf("\nWrong input. Try again.\n\n");
             settings();
             break;
     }
@@ -43,7 +42,7 @@ int main(){
     while(1){
         unsigned int option;
 
-        printf("\nChoose an option:\n");
+        printf("\nChoose an option:\n\n");
         printf("1. Start new game\n");
         printf("2. Settings\n");
         printf("3. Enter a new word\n");
@@ -53,16 +52,19 @@ int main(){
         getchar();
         switch(option){
             case 1:
+                // puts(""); //Tova po nqkakva prichina chupi vsichko
                 start_game();
                 break;
-            case 2: 
+            case 2:
+                puts(""); 
                 settings(); 
                 break;
-            case 3: 
+            case 3:
+                puts(""); 
                 add_word_to_dictionary();
                 break;
             case 4: 
-                printf("Have a nice day!");
+                printf("\nHave a nice day!");
                 exit(0);
             default: 
                 printf("\nWrong input. Try again.\n");

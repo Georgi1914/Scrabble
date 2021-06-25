@@ -130,7 +130,7 @@ int is_empty(struct node_t *root)
 // }
 
 int letter_validation(char *word, struct node_t *root, char *letters){
-    char letter_help[strlen(letters)];
+    char *letter_help = (char*)malloc(sizeof(char)*strlen(letters));
     for(int i = 0; i < strlen(letters) - 1; i++){
         letter_help[i] = tolower(letters[i]);
     }
@@ -138,7 +138,7 @@ int letter_validation(char *word, struct node_t *root, char *letters){
     for(int i = 0; i < strlen(word); i++){
         int ok = 0;
         for(int j = 0; j < strlen(letters); j++){
-            if(word[i] == letter_help[j]){
+            if(word[i] == letter_help[j] || letter_help[j] == '#'){
                 ok = 1;
                 letter_help[j] = '0';
                 break;
@@ -146,11 +146,11 @@ int letter_validation(char *word, struct node_t *root, char *letters){
         }
         if(ok == 0){
             char help = toupper(word[i]);
-            printf("Invalid letter: %c\n", help);
+            //printf("Invalid letter: %c\n", help);
             return 0;
         }
     }
-    printf("valid letter\n");
+    //printf("valid letter\n");
     return 1;
 }
 
