@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <ctype.h>
 
 // Structure initialization
@@ -102,15 +101,15 @@ void print_trie(struct node_t *root)
     }
 }
 
-int is_empty(struct node_t *root)
-{
-    for (int i = 0; i < 26; i++)
-    {
-        if (root->children[i] != NULL)
-            return 0;
-    }
-    return 1;
-}
+// int is_empty(struct node_t *root)
+// {
+//     for (int i = 0; i < 26; i++)
+//     {
+//         if (root->children[i] != NULL)
+//             return 0;
+//     }
+//     return 1;
+// }
 
 // Clearing the allocated memory
 // void clear(struct node_t *root)
