@@ -18,7 +18,8 @@ void start_game(){
     for(int round = 0; round < stngs[0]; round++){
 
         strcpy(letterBag, "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ##");
-    
+
+        printf("\nWrite *** to pass");
         printf("\nYour letters: ");
 
         for(int i = 0; i < stngs[1]; i++){
@@ -31,15 +32,24 @@ void start_game(){
         }
         puts("");
         do{
+            printf("Your word: ");
             scanf("%s", word);
             getchar();
+
+            if(!strcmp(word, "***")){
+                break;
+            }
 
             if(!is_valid(word, &root, letters)){
                 printf("Invalid word. Try again!\n");
             }
         }while(!is_valid(word, &root, letters));
-        printf("Points for this word: %d\n", strlen(word));
-        points += strlen(word);
+        if(strcmp(word, "***")){
+            printf("Points for this word: %d\n", strlen(word));
+            points += strlen(word);
+        }else{
+            printf("Points for this word: 0\n");
+        }
     }
 
     printf("\nPoints for entire game: %d\n", points);
