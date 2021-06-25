@@ -135,21 +135,27 @@ int letter_validation(char *word, struct node_t *root, char *letters){
         letter_help[i] = tolower(letters[i]);
     }
 
+    int invalid_letters = 0;
     for(int i = 0; i < strlen(word); i++){
         int ok = 0;
         for(int j = 0; j < strlen(letters); j++){
-            if(word[i] == letter_help[j] || letter_help[j] == '#'){
+            if(word[i] == letter_help[j]){
                 ok = 1;
                 letter_help[j] = '0';
                 break;
             }
         }
         if(ok == 0){
-            char help = toupper(word[i]);
+            invalid_letters++;
+            //char help = toupper(word[i]);
             //printf("Invalid letter: %c\n", help);
-            return 0;
+            //return 0;
         }
     }
+    for(int j = 0; j < strlen(letters); j++){
+        if(letter_help[j] == '#') invalid_letters--;
+    }
+    if(invalid_letters > 0) return 0;
     //printf("valid letter\n");
     return 1;
 }

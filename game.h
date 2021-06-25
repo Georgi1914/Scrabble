@@ -7,19 +7,26 @@
 void start_game(){
     srand(time(0));
     int stngs[2]; //stngs[0] is the number of rounds; stngs[1] is the number of letters per round
-    char* letters = (char*)malloc(sizeof(char)*stngs[1]);
-    char* word = (char*)malloc(sizeof(char)*stngs[1]);
-    char letterBag[] = "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ##";
-    struct node_t root = init_trie();
-    int points = 0;
     FILE* file = fopen("./settings.bin", "r");
     fread(stngs, sizeof(stngs[0]), 2, file);
+    char* letters = (char*)malloc(sizeof(char)*stngs[1]);
+    char* word = (char*)malloc(sizeof(char)*stngs[1]);
+    struct node_t root = init_trie();
+    int points = 0;
+    int random;
+    char letterBag[101];
     for(int round = 0; round < stngs[0]; round++){
+
+        strcpy(letterBag, "AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ##");
     
         printf("\nYour letters: ");
 
         for(int i = 0; i < stngs[1]; i++){
-            letters[i] = letterBag[rand() % strlen(letterBag)];
+            do{
+                random = rand() % strlen(letterBag);
+            }while(letterBag[random] == '0');
+            letters[i] = letterBag[random];
+            letterBag[random] = '0';
             printf("%c ", letters[i]);
         }
         puts("");
